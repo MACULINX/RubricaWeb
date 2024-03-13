@@ -15,14 +15,7 @@ public class HomeController : Controller
 
     public IActionResult Index()
     {
-        List<string> s = new List<string>();
-
-        using( var sr = new StreamReader("Data/Contatti.csv"))
-        {
-            while(!sr.EndOfStream)
-                s.Add(sr.ReadLine());
-        }
-        return View(s);
+        return View();
     }
 
     public IActionResult Privacy()
@@ -31,7 +24,24 @@ public class HomeController : Controller
     }
     public IActionResult Rubrica()
     {
-        return View();
+        ListContatti lc = new();
+
+        using (var sr = new StreamReader("Data/Contatti.csv"))
+        {
+            while (!sr.EndOfStream)
+                lc.Add(new Contatti(sr.ReadLine()));
+        }
+
+        ListPersona lp = new();
+        using (var sr = new StreamReader("Data/Persone.csv"))
+        {
+            while (!sr.EndOfStream)
+                lp.Add(new Persona(sr.ReadLine()));
+        }
+
+        Rubrica r = new(lp, lc);
+
+        return View(r);
     }
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

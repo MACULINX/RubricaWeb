@@ -1,7 +1,26 @@
+@model Rubrica
 @{
     ViewData["Title"] = "Rubrica";
 }
 <h1>@ViewData["Title"]</h1>
 
-<p>Qui sotto trovarai la rubrica</p>
+<p>Elenco Persone</p>
+<table>
+    @{
+        foreach (var e in @Model.getPersoneList())
+        {
+            <tr><td>@e</td></tr>
+        }
+    }
+</table>
+<br>
+<p>Eleco contatti</p>
+<table>
+    @{
+        foreach (var e in @Model.getContattiList())
+        {
+            <tr><td>@e</td></tr>
+        }
+    }
+</table>
 
