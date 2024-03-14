@@ -1,26 +1,55 @@
 @model Rubrica
 @{
-    ViewData["Title"] = "Rubrica";
+    ViewData["Title"] = "Rubrica"; 
+    int pk = 0;
 }
-<h1>@ViewData["Title"]</h1>
 
-<p>Elenco Persone</p>
-<table>
-    @{
-        foreach (var e in @Model.getPersoneList())
-        {
-            <tr><td>@e</td></tr>
-        }
-    }
-</table>
-<br>
-<p>Eleco contatti</p>
-<table>
-    @{
-        foreach (var e in @Model.getContattiList())
-        {
-            <tr><td>@e</td></tr>
-        }
-    }
-</table>
+<!--INTESTAZIONE-->
+<h1 class ="text-center">
+    @ViewData["Title"]
+</h1>
+
+
+<!--Tabella con contatti-->
+<div class="container">
+    <div class="row">
+            <div class="col">
+                @{
+                    foreach (var e in @Model.getPersoneList())
+                    {
+                            <div class="row">
+                                <button type="button" class="btn btn-outline-secondary">
+                                    <div class="col">
+                                        @e.Cognome
+                                    </div>
+                                    <div class="col">
+                                        @e.Nome
+                                    </div>
+                                </button>
+                            </div>
+                    }
+                }
+            </div>
+
+        <div class="col">
+            @{
+                foreach (var e in @Model.getContattiList())
+                {
+                    <div class="row">
+                        <button type="button" class="btn btn-outline-secondary" disabled>
+                            <div class="col">
+                                @e.Tipo
+                            </div>
+                            <div class="col">
+                                @e.Valore
+                            </div>
+                        </button>
+
+                    </div>
+                }
+            }
+        </div>
+    </div>
+</div>
+
 

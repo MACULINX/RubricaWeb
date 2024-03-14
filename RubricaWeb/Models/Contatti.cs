@@ -38,7 +38,6 @@ public class Contatti
         TipoContatti checker = 0;
         Enum.TryParse(type, out checker);
 
-
         switch (checker) 
         {
             case (TipoContatti)1:
@@ -50,6 +49,11 @@ public class Contatti
             default:
                 return new Contatti(row);
         }
+    }
+
+    public override string ToString()
+    {
+        return $"{Numero};{Tipo};{Valore}";
     }
 
     //Properties

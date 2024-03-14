@@ -26,18 +26,23 @@ public class HomeController : Controller
     {
         ListContatti lc = new();
 
-        using (var sr = new StreamReader("Data/Contatti.csv"))
+        using (var sr = new StreamReader("Data/Contatti.csv")) 
         {
+            sr.ReadLine();
             while (!sr.EndOfStream)
                 lc.Add(new Contatti(sr.ReadLine()));
         }
+            
+        
 
         ListPersona lp = new();
-        using (var sr = new StreamReader("Data/Persone.csv"))
+        using (var sr = new StreamReader("Data/Persone.csv")) 
         {
+            sr.ReadLine();
             while (!sr.EndOfStream)
                 lp.Add(new Persona(sr.ReadLine()));
         }
+            
 
         Rubrica r = new(lp, lc);
 
