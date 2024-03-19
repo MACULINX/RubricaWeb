@@ -16,5 +16,7 @@ class ContattoEmail : Contatti
             _valore = fields[2];
         }
     }
+
+    public ContattoEmail(){}
 }
 

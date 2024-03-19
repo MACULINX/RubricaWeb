@@ -4,17 +4,15 @@ public class ListPersona : List<Persona> { }
 
 public class Persona
 {
-    //Attributi
     private int _numero;
     private string _nome;
     private string _cognome;
 
-
-    //Costruttori
-
-    //Costruzione di un contatto tramite il file CSV
-    public Persona(string row)
+    public Persona(string? row)
     {
+        if(row == null)
+            throw new Exception($"La riga selezionata e' null");
+
         string[] fields = row.Split(';');
 
         if (fields.Length == 3)
@@ -24,6 +22,9 @@ public class Persona
 
             _nome = fields[1];
             _cognome = fields[2];
+        }else
+        {
+            throw new Exception($"La riga selezionata non ha abbastanza parametri");
         }
     }
 
@@ -33,16 +34,17 @@ public class Persona
         _numero = ultimaPersona.Numero + 1;
         _nome = nome;
         _cognome = cognome;
-
     }
 
-    //Costruzione di un contatto vuoto
-    public Persona() { }
+    public Persona() 
+    {
+        _nome = "Nessuno";
+        _cognome = "Nessuno";
+    }
 
-    //Properties
-    public int Numero { get => _numero; set => _numero = value; }
-    public string Nome { get => _nome; set => _nome = value; }
-    public string Cognome { get => _cognome; set => _cognome = value; }
+    public int Numero { get => _numero; }
+    public string Nome { get => _nome;  }
+    public string Cognome { get => _cognome;}
 
 
     public bool Cerca(string s)

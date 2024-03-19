@@ -1,9 +1,22 @@
-﻿using RubricaWeb.Models.TipiContatto;
+﻿using System.Security.Cryptography.X509Certificates;
+using RubricaWeb.Models.TipiContatto;
 namespace RubricaWeb.Models;
+
 
 public enum TipoContatti { nessuno , Email , Telefono , Web}
 
-public class ListContatti : List<Contatti> { }
+
+public class ListContatti : List<Contatti> 
+{ 
+    public override string ToString()
+    {
+        string retVal = "";
+        foreach (var item in this.ToArray())
+            retVal += $"{item.Tipo}: {item.Valore}\n";
+        
+        return retVal;
+    }
+}
 
 public class Contatti
 {
@@ -12,12 +25,11 @@ public class Contatti
     protected string _tipo;
     protected string _valore;
 
-
-    //Costruttori
-
-    //Costruzione di un contatto tramite il file CSV
-    public Contatti(string row)
+    public Contatti(string? row)
     {
+        if(row == null)
+            throw new Exception($"La riga selezionata e' null");
+
         string[] fields = row.Split(';');
 
         if (fields.Length == 3)
@@ -27,16 +39,26 @@ public class Contatti
 
             _tipo = fields[1];
             _valore = fields[2];
+        }else
+        {
+            throw new Exception($"La riga selezionata non ha abbastanza parametri");
         }
     }
-    //Costruzione di un contatto vuoto
-    public Contatti() { }
-
-    public static Contatti GeneraContatto(string row) 
+    public Contatti() 
     {
+        _numero = 0;
+        _tipo = "nessuno";
+        _valore = "nessuno";
+    }
+
+    public static Contatti GeneraContatto(string? row) 
+    {
+        if(row == null)
+            return new Contatti();
+
         string type = row.Split(';')[1].ToLower();
-        TipoContatti checker = 0;
-        Enum.TryParse(type, out checker);
+
+        Enum.TryParse(type, out TipoContatti checker);
 
         switch (checker) 
         {
@@ -58,7 +80,7 @@ public class Contatti
 
     //Properties
     public int Numero { get => _numero;}
-    public string Tipo { get => _tipo; set => _tipo = value; }
-    public string Valore { get => _valore; set => _valore = value; }
+    public string Tipo { get => _tipo; }
+    public string Valore { get => _valore;}
 }
 

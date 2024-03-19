@@ -1,5 +1,6 @@
 ﻿namespace RubricaWeb.Models.TipiContatto;
 
+
 class ContattoWeb : Contatti
 {
     public ContattoWeb(string row)
@@ -16,6 +17,5 @@ class ContattoWeb : Contatti
             _valore = fields[2];
         }
     }
-
-    public ContattoWeb(){ }
+    public ContattoWeb(){}
 }

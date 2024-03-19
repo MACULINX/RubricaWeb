@@ -1,55 +1,52 @@
+@using System.Text.Json;
 @model Rubrica
 @{
-    ViewData["Title"] = "Rubrica"; 
-    int pk = 0;
+    ViewData["Title"] = "Rubrica";
 }
 
-<!--INTESTAZIONE-->
-<h1 class ="text-center">
+<h1 class="text-center">
     @ViewData["Title"]
 </h1>
-
 
 <!--Tabella con contatti-->
 <div class="container">
     <div class="row">
-            <div class="col">
-                @{
-                    foreach (var e in @Model.getPersoneList())
-                    {
-                            <div class="row">
-                                <button type="button" class="btn btn-outline-secondary">
-                                    <div class="col">
-                                        @e.Cognome
-                                    </div>
-                                    <div class="col">
-                                        @e.Nome
-                                    </div>
-                                </button>
-                            </div>
-                    }
-                }
-            </div>
-
         <div class="col">
-            @{
-                foreach (var e in @Model.getContattiList())
+            @using (Html.BeginForm("MostraContatti", "Home", FormMethod.Post))
+            {
+                foreach (var e in @Model.getPersoneList())
                 {
                     <div class="row">
-                        <button type="button" class="btn btn-outline-secondary" disabled>
+                        <button class="btn btn-outline-secondary" name="numero" value="@e.Numero"
+                            formaction="@Url.Action("MostraContatti", "Home")">
                             <div class="col">
-                                @e.Tipo
+                                @e.Cognome
                             </div>
                             <div class="col">
-                                @e.Valore
+                                @e.Nome
                             </div>
                         </button>
+                    </div>
+                }
+            }
+        </div>
 
+        <div class="col">
+
+            @if (Model.PersonaAttuale != null)
+            {
+                ListContatti lc = Model.PersonaAttuale.ContattiFiltrati;
+                
+                foreach (Contatti item in lc)
+                {
+                    <div class="card text-white bg-dark mb-3" style="max-width: 18rem;">
+                        <div class="card-header">@item.Tipo</div>
+                        <div class="card-body">
+                            <h5 class="card-title">@item.Valore</h5>
+                        </div>
                     </div>
                 }
             }
         </div>
     </div>
 </div>
-
-
