@@ -1,5 +1,6 @@
 using System.Diagnostics;
 using System.Globalization;
+using System.Runtime.InteropServices;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -62,13 +63,7 @@ public class HomeController : Controller
 
     public void CaricaFile() 
     {
-        using (var sr = new StreamReader("Data/Contatti.csv"))
-        {
-            VariabiliGlobali._ListaContatti.Clear();
-            sr.ReadLine();
-            while (!sr.EndOfStream)
-                VariabiliGlobali._ListaContatti.Add(new Contatti(sr.ReadLine()));
-        }
+        VariabiliGlobali._ListaContatti = new ListContatti("Data/Contatti.csv");
 
         using (var sr = new StreamReader("Data/Persone.csv"))
         {

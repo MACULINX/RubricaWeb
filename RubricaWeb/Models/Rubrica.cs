@@ -4,9 +4,9 @@
     {
         private ListPersona personeList;
         private ListContatti contattiList;
-        private Contatto _personaAttuale;
+        private Contatto? _personaAttuale;
 
-        public Contatto PersonaAttuale { get => _personaAttuale; set => _personaAttuale = value; }
+        public Contatto? PersonaAttuale { get => _personaAttuale; set => _personaAttuale = value; }
 
         public Rubrica(ListPersona lp, ListContatti lc) 
         {

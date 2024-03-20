@@ -1,4 +1,5 @@
 ﻿using System.Security.Cryptography.X509Certificates;
+using Microsoft.AspNetCore.Http.Features;
 using RubricaWeb.Models.TipiContatto;
 namespace RubricaWeb.Models;
 
@@ -7,12 +8,24 @@ public enum TipoContatti { nessuno , Email , Telefono , Web}
 
 
 public class ListContatti : List<Contatti> 
-{ 
+{   
+    public ListContatti() { }
+    public ListContatti(string file)
+    {
+        using(var sr = new StreamReader(file))
+        {
+            sr.ReadLine();
+            while(!sr.EndOfStream)
+                this.Add(Contatti.GeneraContatto(sr.ReadLine()));
+        }
+    }
+
     public override string ToString()
     {
         string retVal = "";
         foreach (var item in this.ToArray())
-            retVal += $"{item.Tipo}: {item.Valore}\n";
+            if(item != null)
+                retVal += $"{item.Tipo}: {item.Valore}\n";
         
         return retVal;
     }
@@ -28,7 +41,7 @@ public class Contatti
     public Contatti(string? row)
     {
         if(row == null)
-            throw new Exception($"La riga selezionata e' null");
+            return;
 
         string[] fields = row.Split(';');
 
@@ -39,9 +52,6 @@ public class Contatti
 
             _tipo = fields[1];
             _valore = fields[2];
-        }else
-        {
-            throw new Exception($"La riga selezionata non ha abbastanza parametri");
         }
     }
     public Contatti() 

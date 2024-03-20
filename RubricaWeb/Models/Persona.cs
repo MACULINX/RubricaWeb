@@ -1,6 +1,18 @@
 ﻿namespace RubricaWeb.Models;
 
-public class ListPersona : List<Persona> { }
+public class ListPersona : List<Persona> 
+{
+    public ListPersona() {}
+    public ListPersona(string file)
+    {
+        using(var sr = new StreamReader(file))
+        {
+            sr.ReadLine();
+            while(!sr.EndOfStream)
+                this.Add(new Persona(sr.ReadLine()));
+        }
+    }
+}
 
 public class Persona
 {
@@ -11,7 +23,7 @@ public class Persona
     public Persona(string? row)
     {
         if(row == null)
-            throw new Exception($"La riga selezionata e' null");
+           return;
 
         string[] fields = row.Split(';');
 
@@ -22,13 +34,8 @@ public class Persona
 
             _nome = fields[1];
             _cognome = fields[2];
-        }else
-        {
-            throw new Exception($"La riga selezionata non ha abbastanza parametri");
-        }
+        }  
     }
-
-    //Costruzione di un contatto tramite il file CSV
     public Persona(string nome, string cognome, Persona ultimaPersona)
     {
         _numero = ultimaPersona.Numero + 1;
