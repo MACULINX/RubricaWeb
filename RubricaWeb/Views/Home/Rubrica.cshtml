@@ -1,4 +1,3 @@
-@using System.Text.Json;
 @model Rubrica
 @{
     ViewData["Title"] = "Rubrica";
@@ -18,7 +17,7 @@
                 {
                     <div class="row">
                         <button class="btn btn-outline-secondary" name="numero" value="@e.Numero"
-                                data-bs-toggle="offcanvas" data-bs-target="#offcanvasTop" aria-controls="offcanvasTop"
+                                data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight"
                                 formaction="@Url.Action("MostraContatti", "Rubrica")">
                             <div class="col">
                                 @e.Cognome
@@ -32,28 +31,31 @@
             }
         </div>
     </div>
-    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
 
-        <div class="offcanvas-header">
-            <h5 id="offcanvasRightLabel">Lista dei Recapiti</h5>
-            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-        </div>
+    @if (Model.PersonaAttuale != null) { 
+        <div class="offcanvas offcanvas-end show" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
 
-        <div class="offcanvas-body">
-            @if (Model.PersonaAttuale != null)
-            {
-                ListRecapito lc = Model.PersonaAttuale.ContattiFiltrati;
+            <div class="offcanvas-header">
+                <h5 id="offcanvasRightLabel">Lista dei Recapiti</h5>
+                <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
 
-                foreach (Recapito item in lc)
+            <div class="offcanvas-body">
+                @if (Model.PersonaAttuale != null)
                 {
-                    <div class="card text-white bg-dark mb-3" style="max-width: 18rem;">
-                        <div class="card-header">@item.Tipo</div>
-                        <div class="card-body">
-                            <h5 class="card-title">@item.Valore</h5>
+                    ListRecapito lc = Model.PersonaAttuale.ContattiFiltrati;
+
+                    foreach (Recapito item in lc)
+                    {
+                        <div class="card text-white bg-dark mb-3" style="max-width: 18rem;">
+                            <div class="card-header">@item.Tipo</div>
+                            <div class="card-body">
+                                <h5 class="card-title">@item.Valore</h5>
+                            </div>
                         </div>
-                    </div>
+                    }
                 }
-            }
+            </div>
         </div>
-    </div>
+    }
 </div>
