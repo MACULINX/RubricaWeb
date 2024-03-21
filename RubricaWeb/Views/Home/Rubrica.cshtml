@@ -12,13 +12,14 @@
 <div class="container">
     <div class="row">
         <div class="col">
-            @using (Html.BeginForm("MostraContatti", "Home", FormMethod.Post))
+            @using (Html.BeginForm("MostraContatti", "Rubrica", FormMethod.Post))
             {
-                foreach (var e in @Model.getPersoneList())
+                foreach (var e in @Model.PersoneList)
                 {
                     <div class="row">
                         <button class="btn btn-outline-secondary" name="numero" value="@e.Numero"
-                            formaction="@Url.Action("MostraContatti", "Home")">
+                                data-bs-toggle="offcanvas" data-bs-target="#offcanvasTop" aria-controls="offcanvasTop"
+                                formaction="@Url.Action("MostraContatti", "Rubrica")">
                             <div class="col">
                                 @e.Cognome
                             </div>
@@ -30,14 +31,20 @@
                 }
             }
         </div>
+    </div>
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
 
-        <div class="col">
+        <div class="offcanvas-header">
+            <h5 id="offcanvasRightLabel">Lista dei Recapiti</h5>
+            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
 
+        <div class="offcanvas-body">
             @if (Model.PersonaAttuale != null)
             {
-                ListContatti lc = Model.PersonaAttuale.ContattiFiltrati;
-                
-                foreach (Contatti item in lc)
+                ListRecapito lc = Model.PersonaAttuale.ContattiFiltrati;
+
+                foreach (Recapito item in lc)
                 {
                     <div class="card text-white bg-dark mb-3" style="max-width: 18rem;">
                         <div class="card-header">@item.Tipo</div>

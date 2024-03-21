@@ -2,36 +2,34 @@
 {
     public class Rubrica
     {
-        private ListPersona personeList;
-        private ListContatti contattiList;
-        private Contatto? _personaAttuale;
+        public Contatto? PersonaAttuale { get; set; }
+        public ListPersona PersoneList { get; set; }
+        public ListRecapito ContattiList { get; set; }
 
-        public Contatto? PersonaAttuale { get => _personaAttuale; set => _personaAttuale = value; }
-
-        public Rubrica(ListPersona lp, ListContatti lc) 
+        public Rubrica(ListPersona lp, ListRecapito lc) 
         {
-            personeList = lp;
-            contattiList = lc;
-            _personaAttuale = null;
+            PersoneList = lp;
+            ContattiList = lc;
+            PersonaAttuale = null;
         }
 
-        public Rubrica(ListPersona lp, ListContatti lc, Contatto personaAttuale)
+        public Rubrica(ListPersona lp, ListRecapito lc, Contatto personaAttuale)
         {
-            personeList = lp;
-            contattiList = lc;
-            _personaAttuale = personaAttuale;
+            PersoneList = lp;
+            ContattiList = lc;
+            PersonaAttuale = personaAttuale;
         }
 
         public Rubrica(Rubrica r)
         {
-            personeList = r.personeList;
-            contattiList = r.contattiList; 
+            PersoneList = r.PersoneList;
+            ContattiList = r.ContattiList; 
         }
 
         public Rubrica()
         {
-            personeList = new();
-            contattiList = new();
+            PersoneList = new();
+            ContattiList = new();
         }
 
         public ListPersona PersoneFiltrate(string s)
@@ -39,19 +37,19 @@
             ListPersona personeFiltrate = new();
 
             if (s == "")
-                return personeList;
+                return PersoneList;
             
-            foreach (var p in personeList)
+            foreach (var p in PersoneList)
                 if (p.Cerca(s))
                     personeFiltrate.Add(p);
 
             return personeFiltrate;
         }
-        public ListContatti ContattiFiltrati(int PK)
+        public ListRecapito ContattiFiltrati(int PK)
         {
-            ListContatti contattiFiltrati = new();
+            ListRecapito contattiFiltrati = new();
 
-            foreach (var c in contattiList)
+            foreach (var c in ContattiList)
                 if (c.Numero == PK)
                     contattiFiltrati.Add(c);
 
@@ -60,45 +58,12 @@
 
         public void AddPersona(string nome, string cognome)
         {   
-            personeList.Add(new Persona(nome, cognome, personeList.Last()));
+            PersoneList.Add(new Persona(nome, cognome, PersoneList.Last()));
         }
+
         public void RemPersona(Persona p)
         {
-            personeList.Remove(p);
-        }
-        public ListPersona getPersoneList() { return personeList; }
-        public ListContatti getContattiList() {  return contattiList; }
-        
-    }
-
-    public class Contatto 
-    {
-        private int _PK;
-        private Persona _p;
-        private ListContatti _lc;
-
-        public Contatto() { }
-
-        public Contatto(int PK, ListPersona lp, ListContatti lc) 
-        {
-
-            //Imposto la Primary Key
-            _PK = PK;
-
-            //Trovo la persona
-            foreach (Persona p in lp)
-                if (p.Numero == _PK)
-                    _p = p;
-
-            //Trovo tutti i contatti collegati
-            _lc = new ListContatti();
-            foreach (Contatti c in lc)
-                if (c.Numero == _PK)
-                    _lc.Add(c);
-        }
-
-        public Persona PersonaSingola{ get => _p; set => _p = value; }
-        public ListContatti ContattiFiltrati { get => _lc; set => _lc = value; }
-        public int PK { get => _PK; set => _PK = value; }
+            PersoneList.Remove(p);
+        }        
     }
 }

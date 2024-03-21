@@ -7,7 +7,6 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.ViewFeatures.Infrastructure;
 using RubricaWeb.Models;
 
-
 namespace RubricaWeb.Controllers;
 public class HomeController : Controller
 {
@@ -39,7 +38,7 @@ public class HomeController : Controller
 
     public IActionResult Rubrica()
     {
-        CaricaFile();
+        RubricaController.CaricaFile();
 
         if (VariabiliGlobali._Rubrica.PersonaAttuale == null || VariabiliGlobali._Rubrica.PersonaAttuale.PK == 0) 
             VariabiliGlobali._Rubrica = new(VariabiliGlobali._ListaPersona, VariabiliGlobali._ListaContatti);
@@ -47,32 +46,7 @@ public class HomeController : Controller
             VariabiliGlobali._Rubrica = new(VariabiliGlobali._ListaPersona, VariabiliGlobali._ListaContatti, VariabiliGlobali._Rubrica.PersonaAttuale);
 
         return View(VariabiliGlobali._Rubrica);
-    }
-
-    public IActionResult MostraContatti(string numero)
-    {
-
-        if (numero != null)
-        {
-            int PK = Convert.ToInt16(numero);
-            CaricaFile();
-            VariabiliGlobali._Rubrica.PersonaAttuale = new Contatto(PK, VariabiliGlobali._ListaPersona, VariabiliGlobali._ListaContatti);
-        }
-        return RedirectToAction("Rubrica");
-    }
-
-    public void CaricaFile() 
-    {
-        VariabiliGlobali._ListaContatti = new ListContatti("Data/Contatti.csv");
-
-        using (var sr = new StreamReader("Data/Persone.csv"))
-        {
-            VariabiliGlobali._ListaPersona.Clear();
-            sr.ReadLine();
-            while (!sr.EndOfStream)
-                VariabiliGlobali._ListaPersona.Add(new Persona(sr.ReadLine()));
-        }
-    }
+    }    
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()
