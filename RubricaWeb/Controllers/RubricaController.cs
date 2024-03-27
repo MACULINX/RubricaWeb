@@ -18,16 +18,20 @@ namespace RubricaWeb.Controllers
             {
                 int PK = Convert.ToInt16(numero);
                 CaricaFile();
-                VariabiliGlobali._Rubrica.PersonaAttuale = new Contatto(PK, VariabiliGlobali._ListaPersona, VariabiliGlobali._ListaContatti);
+                VariabiliGlobali._Rubrica._DBRubrica.PersonaAttuale = new Contatto(PK, VariabiliGlobali._ListaPersona, VariabiliGlobali._ListaContatti);
             }
             return RedirectToAction("Rubrica","Home");
         }
 
         public static void CaricaFile()
         {
-            VariabiliGlobali._ListaContatti = new ListRecapito("Data/Contatti.csv");
 
+            VariabiliGlobali._ListaContatti = new ListRecapito("Data/Contatti.csv");
             VariabiliGlobali._ListaPersona = new ListPersona("Data/Persone.csv");
+            
+            VariabiliGlobali._Rubrica.SaveChanges();
+
+
         }
     }
 }

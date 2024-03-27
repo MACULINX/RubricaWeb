@@ -1,4 +1,4 @@
-@model Rubrica
+@model SQLRubrica
 @{
     ViewData["Title"] = "Rubrica";
 }
@@ -13,7 +13,7 @@
         <div class="col">
             @using (Html.BeginForm("MostraContatti", "Rubrica", FormMethod.Post))
             {
-                foreach (var e in @Model.PersoneList)
+                foreach (var e in @Model._DBRubrica.PersoneList)
                 {
                     <div class="row">
                         <button class="btn btn-outline-secondary" name="numero" value="@e.Numero"
@@ -32,7 +32,9 @@
         </div>
     </div>
 
-    @if (Model.PersonaAttuale != null) { 
+<!--Lista dei recapiti a scomparsa-->
+    @if (Model._DBRubrica.PersonaAttuale != null) {
+        Thread.Sleep(100);
         <div class="offcanvas offcanvas-end show" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
 
             <div class="offcanvas-header">
@@ -41,9 +43,8 @@
             </div>
 
             <div class="offcanvas-body">
-                @if (Model.PersonaAttuale != null)
-                {
-                    ListRecapito lc = Model.PersonaAttuale.ContattiFiltrati;
+                @{
+                    ListRecapito lc = Model._DBRubrica.PersonaAttuale.ContattiFiltrati;
 
                     foreach (Recapito item in lc)
                     {

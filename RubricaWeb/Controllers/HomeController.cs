@@ -19,20 +19,20 @@ public class HomeController : Controller
 
     public IActionResult Index()
     {
-        if(VariabiliGlobali._Rubrica.PersonaAttuale == null)
+        if(VariabiliGlobali._Rubrica._DBRubrica.PersonaAttuale == null)
             return View();
 
-        VariabiliGlobali._Rubrica.PersonaAttuale.PK = 0;
+        VariabiliGlobali._Rubrica._DBRubrica.PersonaAttuale.PK = 0;
         return View();
 
     }
 
     public IActionResult Privacy()
     {
-        if (VariabiliGlobali._Rubrica.PersonaAttuale == null)
+        if (VariabiliGlobali._Rubrica._DBRubrica.PersonaAttuale == null)
             return View();
 
-        VariabiliGlobali._Rubrica.PersonaAttuale.PK = 0;
+        VariabiliGlobali._Rubrica._DBRubrica.PersonaAttuale.PK = 0;
         return View();
     }
 
@@ -40,10 +40,10 @@ public class HomeController : Controller
     {
         RubricaController.CaricaFile();
 
-        if (VariabiliGlobali._Rubrica.PersonaAttuale == null || VariabiliGlobali._Rubrica.PersonaAttuale.PK == 0) 
-            VariabiliGlobali._Rubrica = new(VariabiliGlobali._ListaPersona, VariabiliGlobali._ListaContatti);
+        if (VariabiliGlobali._Rubrica._DBRubrica.PersonaAttuale == null || VariabiliGlobali._Rubrica._DBRubrica.PersonaAttuale.PK == 0) 
+            VariabiliGlobali._Rubrica._DBRubrica = new(VariabiliGlobali._ListaPersona, VariabiliGlobali._ListaContatti);
         else
-            VariabiliGlobali._Rubrica = new(VariabiliGlobali._ListaPersona, VariabiliGlobali._ListaContatti, VariabiliGlobali._Rubrica.PersonaAttuale);
+            VariabiliGlobali._Rubrica._DBRubrica = new Rubrica(VariabiliGlobali._ListaPersona, VariabiliGlobali._ListaContatti, VariabiliGlobali._Rubrica._DBRubrica.PersonaAttuale);
 
         return View(VariabiliGlobali._Rubrica);
     }    
