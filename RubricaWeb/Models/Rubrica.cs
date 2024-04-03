@@ -6,7 +6,7 @@
         public ListPersona PersoneList { get; set; }
         public ListRecapito ContattiList { get; set; }
 
-        public Rubrica(ListPersona lp, ListRecapito lc) 
+        public Rubrica(ListPersona lp, ListRecapito lc)
         {
             PersoneList = lp;
             ContattiList = lc;
@@ -23,7 +23,7 @@
         public Rubrica(Rubrica r)
         {
             PersoneList = r.PersoneList;
-            ContattiList = r.ContattiList; 
+            ContattiList = r.ContattiList;
         }
 
         public Rubrica()
@@ -38,7 +38,7 @@
 
             if (s == "")
                 return PersoneList;
-            
+
             foreach (var p in PersoneList)
                 if (p.Cerca(s))
                     personeFiltrate.Add(p);
@@ -50,20 +50,20 @@
             ListRecapito contattiFiltrati = new();
 
             foreach (var c in ContattiList)
-                if (c.Numero == PK)
+                if (c.PersonaId == PK)
                     contattiFiltrati.Add(c);
 
             return contattiFiltrati;
         }
 
         public void AddPersona(string nome, string cognome)
-        {   
-            PersoneList.Add(new Persona(nome, cognome, PersoneList.Last()));
+        {
+            PersoneList.Add(new Persona(nome, cognome));
         }
 
         public void RemPersona(Persona p)
         {
             PersoneList.Remove(p);
-        }        
+        }
     }
 }

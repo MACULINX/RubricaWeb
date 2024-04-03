@@ -1,19 +1,16 @@
 using Microsoft.EntityFrameworkCore;
 namespace RubricaWeb.Models
 {
-public class SQLRubrica : DbContext
+    public class Db : DbContext
     {
-        private readonly DbContextOptions? _options;
-        public SQLRubrica()
-        {
-            _DBRubrica = new();
-        }
+        public Db() { }
 
-        protected override void 
+        protected override void
                 OnConfiguring(DbContextOptionsBuilder options)
-                => options.UseSqlite("Data Source=/Data/database.db");
+                => options.UseSqlite("Data Source=database.db");
 
-        public Rubrica _DBRubrica { get ; set; }
+        public DbSet<Persona> Persone { get; set; }
+        public DbSet<Recapito> Recapiti { get; set; }
     }
 }
 

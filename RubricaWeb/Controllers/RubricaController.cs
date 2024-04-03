@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using RubricaWeb.Models;
 
 namespace RubricaWeb.Controllers
@@ -13,24 +12,34 @@ namespace RubricaWeb.Controllers
 
         public IActionResult MostraContatti(string numero)
         {
-
             if (numero != null)
             {
                 int PK = Convert.ToInt16(numero);
-                CaricaFile();
-                VariabiliGlobali._Rubrica._DBRubrica.PersonaAttuale = new Contatto(PK, VariabiliGlobali._ListaPersona, VariabiliGlobali._ListaContatti);
+                ImpostaPersona(PK);
             }
-            return RedirectToAction("Rubrica","Home");
+            return RedirectToAction("Rubrica", "Home");
         }
 
-        public static void CaricaFile()
+        public static void ImpostaPersona(int pk)
         {
+            VariabiliGlobali._PersonaAttiva = new();
 
-            VariabiliGlobali._ListaContatti = new ListRecapito("Data/Contatti.csv");
-            VariabiliGlobali._ListaPersona = new ListPersona("Data/Persone.csv");
-            
-            VariabiliGlobali._Rubrica.SaveChanges();
+            foreach (var p in VariabiliGlobali._Rubrica.Persone)
+            {
+                if (pk == p.PersonaId)
+                {
+                    VariabiliGlobali._PersonaAttiva.PersonaSingola = p;
+                }
+            }
 
+
+            foreach (var r in VariabiliGlobali._Rubrica.Recapiti)
+            {
+                if (pk == r.PersonaId)
+                {
+                    VariabiliGlobali._PersonaAttiva.ContattiFiltrati.Add(r);
+                }
+            }
 
         }
     }

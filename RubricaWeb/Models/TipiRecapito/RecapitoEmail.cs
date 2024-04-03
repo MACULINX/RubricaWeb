@@ -7,6 +7,6 @@ class RecapitoEmail : Recapito
         Tipo = "EMail";
     }
 
-    public RecapitoEmail(){}
+    public RecapitoEmail() { }
 }
 

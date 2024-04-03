@@ -8,5 +8,5 @@ class RecapitoTelefonico : Recapito
         Tipo = "Telefono";
     }
 
-    public RecapitoTelefonico(){}
+    public RecapitoTelefonico() { }
 }
