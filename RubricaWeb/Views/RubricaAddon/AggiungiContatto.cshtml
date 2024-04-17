@@ -1,0 +1,22 @@
+﻿@model Persona
+
+<form asp-controller="Rubrica" asp-action="MostraAggiungiContatto" method="post">
+    <button type="submit" class="btn btn-success m-3">Aggiungi Contatto</button>
+</form>
+
+@if (VariabiliGlobali._Aggiungi)
+{
+    <div class="offcanvas offcanvas-end show" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+        <form asp-controller="Rubrica" asp-action="AggiungiContatto" method="post">
+            <div class="mb-3">
+                <label for="Nome" class="form-label">Nome</label>
+                <input type="text" class="form-control" id="Nome" name="Nome">
+            </div>
+            <div class="mb-3">
+                <label for="Cognome" class="form-label">Cognome</label>
+                <input type="text" class="form-control" id="Cognome" name="Cognome">
+            </div>
+            <button type="submit" class="btn btn-primary">Inserisci contatto</button>
+        </form>
+    </div>
+}

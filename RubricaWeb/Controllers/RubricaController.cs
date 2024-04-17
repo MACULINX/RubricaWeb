@@ -32,7 +32,6 @@ namespace RubricaWeb.Controllers
                 }
             }
 
-
             foreach (var r in VariabiliGlobali._Rubrica.Recapiti)
             {
                 if (pk == r.PersonaId)
@@ -42,5 +41,21 @@ namespace RubricaWeb.Controllers
             }
 
         }
+
+        public IActionResult AggiungiContatto(Persona p) 
+        {
+            VariabiliGlobali.AggiungiPersona(p);
+
+            return RedirectToAction("Rubrica", "Home");
+        }
+
+
+        public IActionResult MostraAggiungiContatto()
+        {
+            VariabiliGlobali._Aggiungi = true;
+
+            return RedirectToAction("Rubrica", "Home");
+        }
+        
     }
 }
