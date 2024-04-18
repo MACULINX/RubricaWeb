@@ -31,13 +31,15 @@ namespace RubricaWeb.Controllers
         {
             Rubrica.AggiungiPersona(p);
 
-            VariabiliGlobali._Aggiungi = false;
+            ResetPagina();
 
             return RedirectToAction("Rubrica", "Home");
         }
 
         public IActionResult MostraAggiungiContatto()
         {
+            ResetPagina();
+
             VariabiliGlobali._Aggiungi = true;
 
             return RedirectToAction("Rubrica", "Home");
@@ -47,13 +49,15 @@ namespace RubricaWeb.Controllers
         {
             Rubrica.RimuoviPersona(SelezioneContatto);
 
-            VariabiliGlobali._Rimuovi = false;
+            ResetPagina();
 
             return RedirectToAction("Rubrica", "Home");
         }
 
         public IActionResult MostraRimuoviContatto()
         {
+            ResetPagina();
+
             VariabiliGlobali._Rimuovi = true;
 
             return RedirectToAction("Rubrica", "Home");
@@ -72,5 +76,11 @@ namespace RubricaWeb.Controllers
                     VariabiliGlobali._PersonaAttiva.ContattiFiltrati.Add(r);
         }
 
+        public void ResetPagina() 
+        {
+            VariabiliGlobali._Rimuovi = false;
+            VariabiliGlobali._Aggiungi = false;
+            VariabiliGlobali._PersonaAttiva = null;
+        }
     }
 }

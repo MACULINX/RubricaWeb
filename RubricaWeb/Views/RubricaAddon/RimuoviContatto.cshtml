@@ -13,14 +13,18 @@
                 @foreach (var e in @Model.Persone)
                 {
                     <div class="row">
-                        <input type="radio" id="@e.PersonaId" name="SelezioneContatto" value="@e.PersonaId">
-                        <label for="@e.PersonaId">
-                            <div class="card text-white bg-dark mb-3" style="max-width: 18rem;">
-                                <div class="card-header">
-                                    @e.Nome @e.Cognome
+                        <div class="col col-sm-1">
+                            <input type="radio" id="@e.PersonaId" name="SelezioneContatto" value="@e.PersonaId">
+                        </div>
+                        <div class="col">
+                            <label for="@e.PersonaId">
+                                <div class="card text-white bg-dark mb-3" style="max-width: 18rem;">
+                                    <div class="card-header">
+                                        @e.Nome @e.Cognome
+                                    </div>
                                 </div>
-                            </div>
-                        </label>
+                            </label>
+                        </div>
                     </div>
                 }
                 <button type="submit" class="btn btn-danger">Rimuovi contatto</button>
