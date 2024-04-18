@@ -6,10 +6,12 @@ namespace RubricaWeb.Controllers;
 public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;
+    public Db DbRubrica {  get; set; }
 
     public HomeController(ILogger<HomeController> logger)
     {
         _logger = logger;
+        DbRubrica = new();
     }
 
     public IActionResult Index()
@@ -33,7 +35,7 @@ public class HomeController : Controller
 
     public IActionResult Rubrica()
     {
-        return View(VariabiliGlobali._Rubrica);
+        return View(DbRubrica);
     }
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

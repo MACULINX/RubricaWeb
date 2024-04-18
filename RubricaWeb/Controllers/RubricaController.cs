@@ -5,6 +5,13 @@ namespace RubricaWeb.Controllers
 {
     public class RubricaController : Controller
     {
+        public Db Rubrica { get; set; }
+
+        public RubricaController() 
+        { 
+            Rubrica = new();
+        }
+
         public IActionResult Index()
         {
             return View();
@@ -20,35 +27,14 @@ namespace RubricaWeb.Controllers
             return RedirectToAction("Rubrica", "Home");
         }
 
-        public static void ImpostaPersona(int pk)
+        public IActionResult AggiungiContatto(Persona p)
         {
-            VariabiliGlobali._PersonaAttiva = new();
+            Rubrica.AggiungiPersona(p);
 
-            foreach (var p in VariabiliGlobali._Rubrica.Persone)
-            {
-                if (pk == p.PersonaId)
-                {
-                    VariabiliGlobali._PersonaAttiva.PersonaSingola = p;
-                }
-            }
-
-            foreach (var r in VariabiliGlobali._Rubrica.Recapiti)
-            {
-                if (pk == r.PersonaId)
-                {
-                    VariabiliGlobali._PersonaAttiva.ContattiFiltrati.Add(r);
-                }
-            }
-
-        }
-
-        public IActionResult AggiungiContatto(Persona p) 
-        {
-            VariabiliGlobali.AggiungiPersona(p);
+            VariabiliGlobali._Aggiungi = false;
 
             return RedirectToAction("Rubrica", "Home");
         }
-
 
         public IActionResult MostraAggiungiContatto()
         {
@@ -56,6 +42,35 @@ namespace RubricaWeb.Controllers
 
             return RedirectToAction("Rubrica", "Home");
         }
-        
+
+        public IActionResult RimuoviContatto(int SelezioneContatto)
+        {
+            Rubrica.RimuoviPersona(SelezioneContatto);
+
+            VariabiliGlobali._Rimuovi = false;
+
+            return RedirectToAction("Rubrica", "Home");
+        }
+
+        public IActionResult MostraRimuoviContatto()
+        {
+            VariabiliGlobali._Rimuovi = true;
+
+            return RedirectToAction("Rubrica", "Home");
+        }
+
+        public void ImpostaPersona(int pk)
+        {
+            VariabiliGlobali._PersonaAttiva = new();
+
+            foreach (var p in Rubrica.Persone)
+                if (pk == p.PersonaId)
+                    VariabiliGlobali._PersonaAttiva.PersonaSingola = p;
+
+            foreach (var r in Rubrica.Recapiti)
+                if (pk == r.PersonaId)
+                    VariabiliGlobali._PersonaAttiva.ContattiFiltrati.Add(r);
+        }
+
     }
 }

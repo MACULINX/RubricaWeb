@@ -34,13 +34,14 @@
                     @Html.Partial("~/Views/RubricaAddon/AggiungiContatto.cshtml", new Persona())
 
                 <!--Rimozione Contatto-->
-                    <button class="btn btn-danger m-3">Rimuovi Contatto</button>
+                    @Html.Partial("~/Views/RubricaAddon/RimuoviContatto.cshtml", Model)
                 </div>
             </div>
             
         </div>
     </div>
 
+    <!--Recapiti della persona-->
     @Html.Partial("~/Views/RubricaAddon/VisualizzazioneRecapiti.cshtml", null)
 
 </div>
