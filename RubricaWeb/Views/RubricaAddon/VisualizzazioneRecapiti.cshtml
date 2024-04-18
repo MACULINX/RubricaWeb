@@ -1,0 +1,30 @@
+﻿@if (VariabiliGlobali._PersonaAttiva != null)
+{
+    Thread.Sleep(290);
+
+    <div class="offcanvas offcanvas-end show" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+
+        <div class="offcanvas-header">
+            <h5 id="offcanvasRightLabel">
+                Lista dei Recapiti
+            </h5>
+            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close" />
+        </div>
+
+        <div class="offcanvas-body">
+            @foreach (Recapito item in VariabiliGlobali._PersonaAttiva.ContattiFiltrati)
+            {
+                <div class="card text-white bg-dark mb-3" style="max-width: 18rem;">
+
+                    <div class="card-header">
+                        @item.Tipo
+                    </div>
+
+                    <div class="card-body">
+                        <h5 class="card-title">@item.Valore</h5>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+}
