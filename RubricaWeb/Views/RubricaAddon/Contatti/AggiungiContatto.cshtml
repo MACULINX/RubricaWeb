@@ -9,6 +9,14 @@
     VariabiliGlobali._PersonaAttiva = null;
 
     <div class="offcanvas offcanvas-end show" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+
+        <div class="offcanvas-header">
+            <h5 id="offcanvasRightLabel">
+                Aggiungi Contatto
+            </h5>
+            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close" />
+        </div>
+
         <div class="offcanvas-body">
             <form asp-controller="Rubrica" asp-action="AggiungiContatto" method="post">
                 <div class="mb-3">
@@ -24,3 +32,4 @@
         </div>
     </div>
 }
+

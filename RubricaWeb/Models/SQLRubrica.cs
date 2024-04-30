@@ -18,16 +18,19 @@ namespace RubricaWeb.Models
             SaveChanges();
         }
 
-        public void RimuoviPersona(int PK) 
+        public void RimuoviPersona(List<int> ListPK) 
         {
-            foreach (Persona p in Persone) 
-                if (p.PersonaId == PK)
-                    Persone.Remove(p);
+            foreach (int PK in ListPK) 
+            {
+                foreach (Persona p in Persone)
+                    if (p.PersonaId == PK)
+                        Persone.Remove(p);
 
-            foreach (Recapito r in Recapiti) 
-                if (r.PersonaId == PK)
-                    Recapiti.Remove(r);
-            
+                foreach (Recapito r in Recapiti)
+                    if (r.PersonaId == PK)
+                        Recapiti.Remove(r);
+            }
+
             SaveChanges();
         }
 

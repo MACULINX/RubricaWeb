@@ -1,0 +1,35 @@
+﻿@model Db
+
+<form asp-controller="Rubrica" asp-action="MostraRimuoviContatto" method="post">
+    <button type="submit" class="btn btn-danger m-3">Rimuovi Contatto</button>
+</form>
+
+@if (VariabiliGlobali._Rimuovi)
+{
+    <div class="offcanvas offcanvas-end show" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+
+        <div class="offcanvas-header">
+            <h5 id="offcanvasRightLabel">
+                Rimuovi Contatto
+            </h5>
+            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close" />
+        </div>
+
+        <div class="offcanvas-body">
+            <form asp-controller="Rubrica" asp-action="RimuoviContatto" method="post">
+                <div class="container">
+                    @foreach (var e in @Model.Persone)
+                    {
+                        <div class="row mb-3 w-75 justify-content-center">
+                            <input type="checkbox" class="btn-check" name="SelezioneContatto" value="@e.PersonaId" id="@e.PersonaId">
+                            <label for="@e.PersonaId" class="btn btn-outline-secondary">
+                                @e.Nome @e.Cognome
+                            </label>
+                        </div>
+                    }
+                </div>
+                <button type="submit" class="btn btn-danger">Rimuovi contatto</button>
+            </form>
+        </div>
+    </div>
+}

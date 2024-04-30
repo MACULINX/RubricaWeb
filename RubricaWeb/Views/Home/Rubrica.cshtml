@@ -31,10 +31,10 @@
             <div class="row">
                 <!--Aggiunta Contatto-->
                 <div class="col d-flex">
-                    @Html.Partial("~/Views/RubricaAddon/AggiungiContatto.cshtml", new Persona())
+                    @Html.Partial("~/Views/RubricaAddon/Contatti/AggiungiContatto.cshtml", new Persona())
 
                 <!--Rimozione Contatto-->
-                    @Html.Partial("~/Views/RubricaAddon/RimuoviContatto.cshtml", Model)
+                    @Html.Partial("~/Views/RubricaAddon/Contatti/RimuoviContatto.cshtml", Model)
                 </div>
             </div>
             
@@ -42,6 +42,6 @@
     </div>
 
     <!--Recapiti della persona-->
-    @Html.Partial("~/Views/RubricaAddon/VisualizzazioneRecapiti.cshtml", null)
+    @Html.Partial("~/Views/RubricaAddon/Recapiti/VisualizzazioneRecapiti.cshtml", null)
 
 </div>

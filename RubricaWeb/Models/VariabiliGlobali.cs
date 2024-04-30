@@ -1,4 +1,5 @@
 ﻿namespace RubricaWeb.Models;
+
 public static class VariabiliGlobali
 {
     public static Contatto _PersonaAttiva { get; set; }
@@ -11,5 +12,4 @@ public static class VariabiliGlobali
         _Aggiungi = false;
         _Rimuovi = false;
     }
-
 }

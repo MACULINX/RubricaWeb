@@ -19,6 +19,8 @@ namespace RubricaWeb.Controllers
 
         public IActionResult MostraContatti(string numero)
         {
+            ResetPagina();
+
             if (numero != null)
             {
                 int PK = Convert.ToInt16(numero);
@@ -45,9 +47,15 @@ namespace RubricaWeb.Controllers
             return RedirectToAction("Rubrica", "Home");
         }
 
-        public IActionResult RimuoviContatto(int SelezioneContatto)
+        public IActionResult RimuoviContatto(string[] SelezioneContatto)
         {
-            Rubrica.RimuoviPersona(SelezioneContatto);
+            List<int> ArrayPK = new();
+
+            foreach (string s in SelezioneContatto) 
+            {
+                ArrayPK.Add(Convert.ToInt32(s));
+            }
+            Rubrica.RimuoviPersona(ArrayPK);
 
             ResetPagina();
 
